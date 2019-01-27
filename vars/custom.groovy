@@ -8,10 +8,6 @@ def call(body) {
     body()
 
     node {
-        stage('Init') {
-            cleanWs()
-            echo(sh(returnStdout: true, script: 'env'))
-        }
         new CustomPipeline(this, config).run()
     }
 }

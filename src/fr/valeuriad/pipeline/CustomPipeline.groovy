@@ -14,8 +14,19 @@ class CustomPipeline {
     }
 
     void run() {
-        steps.stage('Stage #1') {
-            steps.echo('Hello, world !')
+        String mvnHome = '';
+        steps.stage('Preparation') {
+            steps.cleanWs()
+            steps.echo(steps.sh(returnStdout: true, script: 'env'))
+            steps.git('https://github.com/valeuriad-techlab/jenkins-pipeline-maven.git')
+            mvnHome = steps.tool('M3')
+        }
+        steps.stage('Build') {
+            steps.sh("'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package")
+        }
+        steps.stage('Results') {
+            steps.junit('**/target/surefire-reports/TEST-*.xml')
+            steps.archiveArtifacts('target/*.jar')
         }
     }
 
