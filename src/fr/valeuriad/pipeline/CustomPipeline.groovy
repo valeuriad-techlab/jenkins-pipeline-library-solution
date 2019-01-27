@@ -2,20 +2,20 @@ package fr.valeuriad.pipeline
 
 class CustomPipeline {
 
-    // Jenkins Pipeline context
-    def ctx
+    // Jenkins Pipeline steps
+    def steps
 
     // Jenkinsfile configuration
     def config
 
-    NeoloadPipeline(def ctx, def config) {
-        this.ctx = ctx
+    CustomPipeline(def steps, def config) {
+        this.steps = steps
         this.config = config
     }
 
     void run() {
-        ctx.stage('Stage #1') {
-            ctx.echo('Hello, world !')
+        steps.stage('Stage #1') {
+            steps.echo('Hello, world !')
         }
     }
 
