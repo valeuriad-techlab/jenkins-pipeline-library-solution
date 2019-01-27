@@ -18,7 +18,7 @@ class CustomPipeline {
         steps.stage('Preparation') {
             steps.cleanWs()
             steps.echo(steps.sh(returnStdout: true, script: 'env'))
-            steps.git('https://github.com/valeuriad-techlab/jenkins-pipeline-maven.git')
+            steps.git(config.gitUrl)
             mvnHome = steps.tool('M3')
         }
         steps.stage('Build') {
